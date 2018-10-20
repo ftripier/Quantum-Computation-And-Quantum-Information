@@ -1,0 +1,27 @@
+\documentclass[12pt, letterpaper, twoside]{article}
+\usepackage{amsmath}
+
+\title{QCQI Chapter 4 Exercises}
+\author{Felix Tripier}
+
+\newcommand{\iu}{{i\mkern1mu}}
+
+\begin{document}
+
+\maketitle
+4.2: Let $x$ be a real number and $A$ a matrix such that $A^2 = I$. Show that
+
+$$
+	\exp(\iu Ax) = \cos(x)I + \iu \sin(x)A
+$$
+
+Answer:
+
+\begin{align}
+	\exp(\iu Ax) = \sum_{n=1}^{\infty} \frac{1}{n!} (\iu Ax)^n                                \\
+	= \sum_{n=1}^{\infty} \frac{1}{(2n)!} (\iu Ax)^{2n} + \frac{1}{(2n + 1)!} (\iu Ax)^{2n+1} \\
+	= I\sum_{n=1}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n} + \frac{1}{(2n + 1)!} (\iu Ax)^{2n+1}  \\
+	= I\sum_{n=1}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n} + \iu A\frac{(-1)^n}{(2n + 1)!} x^n    \\
+	= \cos(x)I + \iu \sin(x)A
+\end{align}
+\end{document}
