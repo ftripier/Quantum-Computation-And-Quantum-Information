@@ -1,5 +1,6 @@
 \documentclass[12pt, letterpaper, twoside]{article}
 \usepackage{amsmath}
+\usepackage{braket}
 
 \title{QCQI Chapter 4 Exercises}
 \author{Felix Tripier}
@@ -23,6 +24,15 @@
     #1 & #3 \\
     #2 & #4
 \end{bmatrix}}
+\newcommand{\Rn}{\twoXtwo{
+    \cos{\halftheta} - \iu \sin{\halftheta}n_z
+    }{
+        \iu \sin{\halftheta}(n_x + \iu n_y)
+    }{
+        \iu \sin{\halftheta}(n_x - \iu n_y)
+    }{
+        \cos{\halftheta} + \iu \sin{\halftheta}n_z
+        }}
 
 
 \begin{document}
@@ -123,5 +133,38 @@ and therefore
 $$
 	\twoXtwo{1}{\text{scooby-doo}}{\text{scooby-doo}}{1} = \twoXtwo{1}{0}{0}{1} = I
 $$
+
+Having done this convuluted and scooby-dooful proof, I now realize that since all quantum operators must be Hermitian and unitary, then $R_{\hat{n}}^2$ must trivially be equal to $I$ by:
+\begin{subequations}
+	\begin{align}
+R_{\hat{n}}^\dagger R_{\hat{n}} = I \text{ by being unitary} \\
+R_{\hat{n}}^\dagger = R_{\hat{n}} \text{ by being Hermitian} \\
+R_{\hat{n}}^2 = I
+\end{align}
+\end{subequations}
+
+4.6: I'm getting kinda tired so I'm not gonna write the full question for this one. It's so long dude. They want me to prove that $R_{\hat{n}}(\theta)$ rotates a Bloch vector around the $\hat{n}$ axis.
+
+For a state vector $a\ket{0} + b\ket{1}$
+\begin{subequations}
+\begin{align}
+R_n(\theta) = \Rn \\
+R_n{\theta}(a\ket{0} + b\ket{1}) = e^{-\iu \halftheta}n_z a\ket{0} + \iu \sin{\halftheta}(n_x - \iu n_y)b\ket{1} + \iu \sin{\halftheta}(n_x + \iu n_y)a\ket{0} +  e^{\iu \halftheta}n_z b\ket{1} \\
+\frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial a\ket{0}} = e^{-\iu \halftheta}n_z + \iu \sin{\halftheta}(n_x + \iu n_y) \\
+\frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial b\ket{0}} = e^{\iu \halftheta}n_z + \iu \sin{\halftheta}(n_x - \iu n_y) \\
+\frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial a\ket{0}} - \frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial b\ket{0}} = 2\iu \sin{\halftheta} n_z - 2\sin{\halftheta} n_y
+\end{align}
+\end{subequations}
+
+which shows up in the polar coordinates basis $(\theta, \varphi)$ as
+\begin{subequations}
+\begin{align}
+a = \cos{\halftheta} \text{ by definition of the Bloch vector} \\
+b = e^{\iu \varphi} \sin{\halftheta} \text{ by definition of the Bloch vector} \\
+\theta = 2\arccos{a} \\
+\varphi = -\iu \ln{\frac{b}{\sin{\halftheta}}}
+\end{align}
+\end{subequations}
+
 
 \end{document}
