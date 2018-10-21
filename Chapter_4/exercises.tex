@@ -1,6 +1,7 @@
 \documentclass[12pt, letterpaper, twoside]{article}
 \usepackage{amsmath}
 \usepackage{braket}
+\usepackage{amssymb}
 
 \title{QCQI Chapter 4 Exercises}
 \author{Felix Tripier}
@@ -33,6 +34,10 @@
     }{
         \cos{\halftheta} + \iu \sin{\halftheta}n_z
         }}
+\newcommand{\pauliX}{\twoXtwo{0}{1}{1}{0}}
+\newcommand{\pauliY}{\twoXtwo{0}{\iu}{-\iu}{0}}
+\newcommand{\pauliZ}{\twoXtwo{1}{0}{0}{-1}}
+
 
 
 \begin{document}
@@ -100,41 +105,7 @@ $$
 	R_{\hat{n}}(\theta) \equiv \exp(-\iu \theta \hat{n} \cdot \sigma/2) = \cos(\frac{\theta}{2})I - \iu \sin(\frac{\theta}{2})(n_xX + n_yY + n_zZ)
 $$
 
-Okay, proof by equational reasoning:
-
-$\hat{n}$ is a unit vector so $n_z^2 + n_x^2 + n_y^2 = 1$.
-
-\begin{subequations}
-	\begin{align}
-		(\hat{n} \cdot \sigma)^2 = (\twoXtwo{0}{n_x}{n_x}{0} + \twoXtwo{0}{-\iu n_y}{-\iu n_y}{0} + \twoXtwo{n_z}{0}{0}{-n_z})^2 \\
-		= (\twoXtwo{n_z}{n_x + \iu n_y}{n_x - \iu n_y}{n_z})^2
-		= \twoXtwo{n_z^2 + n_x^2 + n_y^2}{2n_z(n_x + \iu n_y)}{2n_z(n_x - \iu n_y)}{n_z^2 + n_x^2 + n_y^2}                       \\
-		= \twoXtwo{1}{2n_z(n_x + \iu n_y)}{2n_z(n_x - \iu n_y)}{1}
-	\end{align}
-\end{subequations}
-Hermitian operators must be equal to their adjoint and so
-$$
-	2n_z(n_x + \iu n_y) = 2n_z(n_x - \iu n_y)
-$$
-
-We'll call this term "scooby-doo".
-
-The determinant of a rotation matrix must be 1, and so we have
-\begin{subequations}
-	\begin{align}
-	1 - \text{scooby-doo}^2 = 1 \\
-	- \text{scooby-doo}^2 = 0 \\
-	\text{scooby-doo} = 0
-\end{align}
-\end{subequations}
-
-and therefore
-
-$$
-	\twoXtwo{1}{\text{scooby-doo}}{\text{scooby-doo}}{1} = \twoXtwo{1}{0}{0}{1} = I
-$$
-
-Having done this convuluted and scooby-dooful proof, I now realize that since all quantum operators must be Hermitian and unitary, then $R_{\hat{n}}^2$ must trivially be equal to $I$ by:
+All quantum operators must be Hermitian and unitary, so then $R_{\hat{n}}^2$ must trivially be equal to $I$ by:
 \begin{subequations}
 	\begin{align}
 R_{\hat{n}}^\dagger R_{\hat{n}} = I \text{ by being unitary} \\
@@ -145,26 +116,39 @@ R_{\hat{n}}^2 = I
 
 4.6: I'm getting kinda tired so I'm not gonna write the full question for this one. It's so long dude. They want me to prove that $R_{\hat{n}}(\theta)$ rotates a Bloch vector around the $\hat{n}$ axis.
 
-For a state vector $a\ket{0} + b\ket{1}$
+$$
+R_n(\theta) = \Rn
+$$
+
+One observes that this matrix has the effect of changing the $\ket{0}\ket{1}$ basis vectors into
+$$
+\ket{0'} = (\cos{\halftheta} - \iu \sin{\halftheta}n_z)\ket{0} + \iu\sin{\halftheta}(n_x + \iu n_y) \ket{1}
+$$
+$$
+\ket{1'} = (\cos{\halftheta} + \iu \sin{\halftheta}n_z)\ket{1} +  \iu\sin{\halftheta}(n_x - \iu n_y) \ket{0}
+$$
+My proof follows by proving these two vectors form an orthonormal basis that traces out a unit sphere in $\mathbb{R}^3$. In the interest of saving time, I didn't make it fully rigorous.
+
+Both new vectors must be of norm one, because the rotation matrix is defined as
+$$
+R_{\hat{n}}(\theta) = exp(-\iu \theta \hat{n} * \sigma/2)
+$$
+
+Because the rotation operator is defined from a matrix exponential, and is Hermitian and unitary, it must have a basis of orthonormal vectors. Since the components of base vector are defined by a linear combination of four variables with only two equations and trigonometric functions, with an imaginary summand, their domain is in the unit circle of $\mathbb{C}$.
+
+A vector of two complex numbers is equal in cardinality to $\mathbb{R}^4$, and since each component is in the unit circle of $\mathbb{C}$, the unit sphere is a subset of the values. There exists a bijection to the bloch sphere, by the axioms of set theory.
+
+4.7 Show that $XYX = -Y$ and use this to prove that $X R_y(\theta)X = R_y(-\theta)$
 \begin{subequations}
 \begin{align}
-R_n(\theta) = \Rn \\
-R_n{\theta}(a\ket{0} + b\ket{1}) = e^{-\iu \halftheta}n_z a\ket{0} + \iu \sin{\halftheta}(n_x - \iu n_y)b\ket{1} + \iu \sin{\halftheta}(n_x + \iu n_y)a\ket{0} +  e^{\iu \halftheta}n_z b\ket{1} \\
-\frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial a\ket{0}} = e^{-\iu \halftheta}n_z + \iu \sin{\halftheta}(n_x + \iu n_y) \\
-\frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial b\ket{0}} = e^{\iu \halftheta}n_z + \iu \sin{\halftheta}(n_x - \iu n_y) \\
-\frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial a\ket{0}} - \frac{\partial R_n{\theta}(a\ket{0} + b\ket{1})}{\partial b\ket{0}} = 2\iu \sin{\halftheta} n_z - 2\sin{\halftheta} n_y
+XYX = \pauliX\pauliY\pauliX\\
+\pauliX\twoXtwo{-\iu}{0}{0}{\iu}\\
+= \twoXtwo{0}{-\iu}{\iu}{0} = -Y\\
+XR_y(\theta)X = X(\cos{\halftheta}I - \iu \sin{\halftheta}Y)X\\
+= \cos{\halftheta}XX - \iu \sin{\halftheta}XYX\\
+= \cos{\halftheta}I +\iu \sin{\halftheta}Y\\
+= R_y(-\theta)
 \end{align}
 \end{subequations}
-
-which shows up in the polar coordinates basis $(\theta, \varphi)$ as
-\begin{subequations}
-\begin{align}
-a = \cos{\halftheta} \text{ by definition of the Bloch vector} \\
-b = e^{\iu \varphi} \sin{\halftheta} \text{ by definition of the Bloch vector} \\
-\theta = 2\arccos{a} \\
-\varphi = -\iu \ln{\frac{b}{\sin{\halftheta}}}
-\end{align}
-\end{subequations}
-
 
 \end{document}
