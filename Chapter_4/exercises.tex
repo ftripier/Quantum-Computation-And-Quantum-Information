@@ -37,33 +37,33 @@ $$
 Answer:
 
 \begin{subequations}
-\begin{align}
-	\exp(\iu Ax) = \sum_{n=1}^{\infty} \frac{1}{n!} (\iu Ax)^n                                \\
-	= \sum_{n=1}^{\infty} \frac{1}{(2n)!} (\iu Ax)^{2n} + \frac{1}{(2n + 1)!} (\iu Ax)^{2n+1} \\
-	= I\sum_{n=1}^{\infty} \frac{(-1)^n}{(2n)!} x^{n} + \frac{1}{(2n + 1)!} (\iu Ax)^{2n+1}   \\
-	= I\sum_{n=1}^{\infty} \frac{(-1)^n}{(2n)!} x^{n} + \iu A\frac{(-1)^n}{(2n + 1)!} x^n     \\
-	= \cos(x)I + \iu \sin(x)A
-\end{align}
+	\begin{align}
+		\exp(\iu Ax) = \sum_{n=1}^{\infty} \frac{1}{n!} (\iu Ax)^n                                \\
+		= \sum_{n=1}^{\infty} \frac{1}{(2n)!} (\iu Ax)^{2n} + \frac{1}{(2n + 1)!} (\iu Ax)^{2n+1} \\
+		= I\sum_{n=1}^{\infty} \frac{(-1)^n}{(2n)!} x^{n} + \frac{1}{(2n + 1)!} (\iu Ax)^{2n+1}   \\
+		= I\sum_{n=1}^{\infty} \frac{(-1)^n}{(2n)!} x^{n} + \iu A\frac{(-1)^n}{(2n + 1)!} x^n     \\
+		= \cos(x)I + \iu \sin(x)A
+	\end{align}
 \end{subequations}
 
 4.3: Show that, up to a global phase, the $\pi/8$ gate satisfies $T = R_z(\pi/4)$
 
 Answer:
 \[
-    \pi/8 \text{ gate} =
-    exp(\iu\pi/8)
-\begin{bmatrix}
-    e^{-\iu \pi/8} & 0 \\
-    0 & e^{-\iu \pi/8}
-\end{bmatrix}
+	\pi/8 \text{ gate} =
+	exp(\iu\pi/8)
+	\begin{bmatrix}
+		e^{-\iu \pi/8} & 0              \\
+		0              & e^{-\iu \pi/8}
+	\end{bmatrix}
 \]
 and
 \[
-    R_z(\pi/4) =
-\begin{bmatrix}
-    e^{-\iu \pi/8} & 0 \\
-    0 & e^{-\iu \pi/8}
-\end{bmatrix}
+	R_z(\pi/4) =
+	\begin{bmatrix}
+		e^{-\iu \pi/8} & 0              \\
+		0              & e^{-\iu \pi/8}
+	\end{bmatrix}
 \]
 
 $exp(\iu\pi/8)$ is just a global phase factor dude.
@@ -74,15 +74,54 @@ $exp(\iu\pi/8)$ is just a global phase factor dude.
 Answer:
 
 \begin{subequations}
-\begin{align}
-    \text{Hadamard} = \Hadamard \\
-    R_z(\theta) = \Rz\\
-    R_x(\theta) = \Rx\\
-    R_z(-2\pi) = \twoXtwo{1}{0}{0}{-1}\\
-    R_x(\pi) = \twoXtwo{0}{-\iu}{-\iu}{0}\\
-    e^{\iu*\frac{5\pi}{2}} * R_x(\pi/2) * R_z(\pi/2) * R_x(\pi/2) = \Hadamard
-\end{align}
+	\begin{align}
+		\text{Hadamard} = \Hadamard           \\
+		R_z(\theta) = \Rz                     \\
+		R_x(\theta) = \Rx                     \\
+		R_z(-2\pi) = \twoXtwo{1}{0}{0}{-1}    \\
+		R_x(\pi) = \twoXtwo{0}{-\iu}{-\iu}{0} \\
+		e^{\iu\cdot\frac{5\pi}{2}} \cdot R_x(\pi/2) \cdot R_z(\pi/2) \cdot R_x(\pi/2) = \Hadamard
+	\end{align}
 \end{subequations}
 The insight here is that this series of rotations is equivalent (within a global phase factor) to the Hadamard's more obvious set of rotations: 90 degrees around the y axis followed by 180 degrees around the x axis.
+
+4.5 Prove that $(\hat{n} \cdot \sigma)^2 = I$ and use this to verify this equation:
+$$
+	R_{\hat{n}}(\theta) \equiv \exp(-\iu \theta \hat{n} \cdot \sigma/2) = \cos(\frac{\theta}{2})I - \iu \sin(\frac{\theta}{2})(n_xX + n_yY + n_zZ)
+$$
+
+Okay, proof by equational reasoning:
+
+$\hat{n}$ is a unit vector so $n_z^2 + n_x^2 + n_y^2 = 1$.
+
+\begin{subequations}
+	\begin{align}
+		(\hat{n} \cdot \sigma)^2 = (\twoXtwo{0}{n_x}{n_x}{0} + \twoXtwo{0}{-\iu n_y}{-\iu n_y}{0} + \twoXtwo{n_z}{0}{0}{-n_z})^2 \\
+		= (\twoXtwo{n_z}{n_x + \iu n_y}{n_x - \iu n_y}{n_z})^2
+		= \twoXtwo{n_z^2 + n_x^2 + n_y^2}{2n_z(n_x + \iu n_y)}{2n_z(n_x - \iu n_y)}{n_z^2 + n_x^2 + n_y^2}                       \\
+		= \twoXtwo{1}{2n_z(n_x + \iu n_y)}{2n_z(n_x - \iu n_y)}{1}
+	\end{align}
+\end{subequations}
+Hermitian operators must be equal to their adjoint and so
+$$
+	2n_z(n_x + \iu n_y) = 2n_z(n_x - \iu n_y)
+$$
+
+We'll call this term "scooby-doo".
+
+The determinant of a rotation matrix must be 1, and so we have
+\begin{subequations}
+	\begin{align}
+	1 - \text{scooby-doo}^2 = 1 \\
+	- \text{scooby-doo}^2 = 0 \\
+	\text{scooby-doo} = 0
+\end{align}
+\end{subequations}
+
+and therefore
+
+$$
+	\twoXtwo{1}{\text{scooby-doo}}{\text{scooby-doo}}{1} = \twoXtwo{1}{0}{0}{1} = I
+$$
 
 \end{document}
