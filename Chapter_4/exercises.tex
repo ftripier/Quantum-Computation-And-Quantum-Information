@@ -28,9 +28,9 @@
 \newcommand{\Rn}{\twoXtwo{
     \cos{\halftheta} - \iu \sin{\halftheta}n_z
     }{
-        \iu \sin{\halftheta}(n_x + \iu n_y)
+        -\iu \sin{\halftheta}(n_x + \iu n_y)
     }{
-        \iu \sin{\halftheta}(n_x - \iu n_y)
+        -\iu \sin{\halftheta}(n_x - \iu n_y)
     }{
         \cos{\halftheta} + \iu \sin{\halftheta}n_z
         }}
@@ -122,10 +122,10 @@ $$
 
 One observes that this matrix has the effect of changing the $\ket{0}\ket{1}$ basis vectors into
 $$
-\ket{0'} = (\cos{\halftheta} - \iu \sin{\halftheta}n_z)\ket{0} + \iu\sin{\halftheta}(n_x + \iu n_y) \ket{1}
+\ket{0'} = (\cos{\halftheta} - \iu \sin{\halftheta}n_z)\ket{0} - \iu\sin{\halftheta}(n_x + \iu n_y) \ket{1}
 $$
 $$
-\ket{1'} = (\cos{\halftheta} + \iu \sin{\halftheta}n_z)\ket{1} +  \iu\sin{\halftheta}(n_x - \iu n_y) \ket{0}
+\ket{1'} = (\cos{\halftheta} + \iu \sin{\halftheta}n_z)\ket{1} -  \iu\sin{\halftheta}(n_x - \iu n_y) \ket{0}
 $$
 My proof follows by proving these two vectors form an orthonormal basis that traces out a unit sphere in $\mathbb{R}^3$. In the interest of saving time, I didn't make it fully rigorous.
 
@@ -150,5 +150,45 @@ XR_y(\theta)X = X(\cos{\halftheta}I - \iu \sin{\halftheta}Y)X\\
 = R_y(-\theta)
 \end{align}
 \end{subequations}
+
+4.8 An arbitrary single qubit unitary operator can be written in the form
+$$
+U = exp(\iu \alpha)R_{\hat{n}}(\theta)
+$$
+for some real numbers $\alpha$ and $\theta$, and a real three-dimensional unit vector $\hat{n}$.
+
+1. Prove this fact.
+As we mentioned before, $R_{\hat{n}}(\theta)$ rotates a state vector to an arbitrary point on the Bloch Sphere - and there is a bijection between Bloch points and state vectors. Therefore, the rotation transformation can map any state vector to any state vector in a unitary fashion, within some global phase factor.
+
+2. Find values for $\alpha$ and $\theta$ and $\hat{n}$ giving the Hadamard gate H.
+\begin{subequations}
+\begin{align}
+Hadamard = \Hadamard \\
+= 1/\sqrt(2) (X + Z) \\
+e^{i \alpha}(\cos{\halftheta}I - (\iu \sin{\halftheta}(n_x X + n_z Z))) = 1/\sqrt(2) (X + Z) \\
+e^{i \alpha}(\cos{\halftheta}I - (\iu \sin{\halftheta}(n_x X + n_z Z))) = \twoXtwo{\cos{\halftheta} - \iu \sin{\halftheta} n_z}{-\iu \sin{\halftheta} n_x}{-\iu \sin{\halftheta} n_x}{\cos{\halftheta} + \iu \sin{\halftheta} n_z} \\
+\cos{\halftheta} - \iu \sin{\halftheta} n_z = -\cos{\halftheta} - \iu \sin{\halftheta} n_z \\
+\cos(\halftheta) = - \cos(\halftheta) \\
+\theta = \pi \\
+R_{\hat{n}}(\pi) = \twoXtwo{- \iu n_z}{-\iu n_x}{-\iu n_x}{\iu n_z} \\
+n_x = n_z = \sqrt{2} \text{ - this makes the axis a unit vector} \\
+e^{\iu\frac{\pi}{4}} R_{(\sqrt{2}, 0, \sqrt{2})}(\pi) = \Hadamard = Hadamard \\
+\alpha = \frac{\pi}{4} \\ \hat{n} = (\sqrt{2}, 0, \sqrt{2}) \\ \theta = \pi
+\end{align}
+\end{subequations}
+
+3. Find values for $\alpha$ and $\theta$ and $\hat{n}$ giving the phase gate.
+$$
+S = \twoXtwo{1}{0}{0}{\iu}
+$$
+\begin{subequations}
+\begin{align}
+R_z(\theta) = \Rz\\
+= e^{-i \halftheta} \twoXtwo{1}{0}{0}{e^{i \theta} } \\
+R_z(\pi/2) = e^{-i \pi/4} \twoXtwo{1}{0}{0}{i} \\
+e^{i \pi/4}R_z(\pi/2) = \twoXtwo{1}{0}{0}{\iu} = S \\
+\end{align}
+\end{subequations}
+
 
 \end{document}

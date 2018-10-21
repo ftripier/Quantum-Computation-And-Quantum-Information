@@ -22,3 +22,11 @@ def r_y(theta):
         [math.cos(theta/2), math.sin(theta/2)],
         [-math.sin(theta/2), math.cos(theta/2)]
     ]
+
+def r(n, theta):
+    return [
+        [math.cos(theta/2) - 1j * math.sin(theta/2) * n[2], 
+        -1j * math.sin(theta/2) * (n[0] + 1j*n[1])],
+        [-1j * math.sin(theta/2) * (n[0] - 1j*n[1]),
+        math.cos(theta/2) + 1j * math.sin(theta/2) * n[2]]
+    ]
