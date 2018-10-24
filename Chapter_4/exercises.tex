@@ -34,9 +34,20 @@
     }{
         \cos{\halftheta} + \iu \sin{\halftheta}n_z
         }}
+\newcommand{\Rnparam}[2]{\twoXtwo{
+    \cos{#1} - \iu \sin{#1}#2_z
+    }{
+        -\iu \sin{#1}(#2x + \iu #2y)
+    }{
+        -\iu \sin{#1}(#2x - \iu #2y)
+    }{
+        \cos{#1} + \iu \sin{#1}#2z
+        }}
 \newcommand{\pauliX}{\twoXtwo{0}{1}{1}{0}}
 \newcommand{\pauliY}{\twoXtwo{0}{\iu}{-\iu}{0}}
 \newcommand{\pauliZ}{\twoXtwo{1}{0}{0}{-1}}
+\newcommand{\sqrhat}{\frac{1}{\sqrt{2}}}
+\newcommand{\Tgate}{\twoXtwo{1}{0}{0}{\exp{\iu \pi/4}}}
 
 
 
@@ -108,30 +119,30 @@ $$
 All quantum operators must be Hermitian and unitary, so then $R_{\hat{n}}^2$ must trivially be equal to $I$ by:
 \begin{subequations}
 	\begin{align}
-R_{\hat{n}}^\dagger R_{\hat{n}} = I \text{ by being unitary} \\
-R_{\hat{n}}^\dagger = R_{\hat{n}} \text{ by being Hermitian} \\
-R_{\hat{n}}^2 = I
-\end{align}
+		R_{\hat{n}}^\dagger R_{\hat{n}} = I \text{ by being unitary} \\
+		R_{\hat{n}}^\dagger = R_{\hat{n}} \text{ by being Hermitian} \\
+		R_{\hat{n}}^2 = I
+	\end{align}
 \end{subequations}
 
 4.6: I'm getting kinda tired so I'm not gonna write the full question for this one. It's so long dude. They want me to prove that $R_{\hat{n}}(\theta)$ rotates a Bloch vector around the $\hat{n}$ axis.
 
 $$
-R_n(\theta) = \Rn
+	R_n(\theta) = \Rn
 $$
 
 One observes that this matrix has the effect of changing the $\ket{0}\ket{1}$ basis vectors into
 $$
-\ket{0'} = (\cos{\halftheta} - \iu \sin{\halftheta}n_z)\ket{0} - \iu\sin{\halftheta}(n_x + \iu n_y) \ket{1}
+	\ket{0'} = (\cos{\halftheta} - \iu \sin{\halftheta}n_z)\ket{0} - \iu\sin{\halftheta}(n_x + \iu n_y) \ket{1}
 $$
 $$
-\ket{1'} = (\cos{\halftheta} + \iu \sin{\halftheta}n_z)\ket{1} -  \iu\sin{\halftheta}(n_x - \iu n_y) \ket{0}
+	\ket{1'} = (\cos{\halftheta} + \iu \sin{\halftheta}n_z)\ket{1} -  \iu\sin{\halftheta}(n_x - \iu n_y) \ket{0}
 $$
 My proof follows by proving these two vectors form an orthonormal basis that traces out a unit sphere in $\mathbb{R}^3$. In the interest of saving time, I didn't make it fully rigorous.
 
 Both new vectors must be of norm one, because the rotation matrix is defined as
 $$
-R_{\hat{n}}(\theta) = exp(-\iu \theta \hat{n} * \sigma/2)
+	R_{\hat{n}}(\theta) = exp(-\iu \theta \hat{n} * \sigma/2)
 $$
 
 Because the rotation operator is defined from a matrix exponential, and is Hermitian and unitary, it must have a basis of orthonormal vectors. Since the components of base vector are defined by a linear combination of four variables with only two equations and trigonometric functions, with an imaginary summand, their domain is in the unit circle of $\mathbb{C}$.
@@ -140,21 +151,23 @@ A vector of two complex numbers is equal in cardinality to $\mathbb{R}^4$, and s
 
 4.7 Show that $XYX = -Y$ and use this to prove that $X R_y(\theta)X = R_y(-\theta)$
 \begin{subequations}
-\begin{align}
-XYX = \pauliX\pauliY\pauliX\\
-\pauliX\twoXtwo{-\iu}{0}{0}{\iu}\\
-= \twoXtwo{0}{-\iu}{\iu}{0} = -Y\\
-XR_y(\theta)X = X(\cos{\halftheta}I - \iu \sin{\halftheta}Y)X\\
-= \cos{\halftheta}XX - \iu \sin{\halftheta}XYX\\
-= \cos{\halftheta}I +\iu \sin{\halftheta}Y\\
-= R_y(-\theta)
-\end{align}
+	\begin{align}
+		XYX = \pauliX\pauliY\pauliX                                   \\
+		\pauliX\twoXtwo{-\iu}{0}{0}{\iu}                              \\
+		= \twoXtwo{0}{-\iu}{\iu}{0} = -Y                              \\
+		XR_y(\theta)X = X(\cos{\halftheta}I - \iu \sin{\halftheta}Y)X \\
+		= \cos{\halftheta}XX - \iu \sin{\halftheta}XYX                \\
+		= \cos{\halftheta}I +\iu \sin{\halftheta}Y                    \\
+		= R_y(-\theta)
+	\end{align}
 \end{subequations}
 
 4.8 An arbitrary single qubit unitary operator can be written in the form
+
 $$
-U = exp(\iu \alpha)R_{\hat{n}}(\theta)
+	U = exp(\iu \alpha)R_{\hat{n}}(\theta)
 $$
+
 for some real numbers $\alpha$ and $\theta$, and a real three-dimensional unit vector $\hat{n}$.
 
 1. Prove this fact.
@@ -162,33 +175,160 @@ As we mentioned before, $R_{\hat{n}}(\theta)$ rotates a state vector to an arbit
 
 2. Find values for $\alpha$ and $\theta$ and $\hat{n}$ giving the Hadamard gate H.
 \begin{subequations}
-\begin{align}
-Hadamard = \Hadamard \\
-= 1/\sqrt(2) (X + Z) \\
-e^{i \alpha}(\cos{\halftheta}I - (\iu \sin{\halftheta}(n_x X + n_z Z))) = 1/\sqrt(2) (X + Z) \\
-e^{i \alpha}(\cos{\halftheta}I - (\iu \sin{\halftheta}(n_x X + n_z Z))) = \twoXtwo{\cos{\halftheta} - \iu \sin{\halftheta} n_z}{-\iu \sin{\halftheta} n_x}{-\iu \sin{\halftheta} n_x}{\cos{\halftheta} + \iu \sin{\halftheta} n_z} \\
-\cos{\halftheta} - \iu \sin{\halftheta} n_z = -\cos{\halftheta} - \iu \sin{\halftheta} n_z \\
-\cos(\halftheta) = - \cos(\halftheta) \\
-\theta = \pi \\
-R_{\hat{n}}(\pi) = \twoXtwo{- \iu n_z}{-\iu n_x}{-\iu n_x}{\iu n_z} \\
-n_x = n_z = \sqrt{2} \text{ - this makes the axis a unit vector} \\
-e^{\iu\frac{\pi}{4}} R_{(\sqrt{2}, 0, \sqrt{2})}(\pi) = \Hadamard = Hadamard \\
-\alpha = \frac{\pi}{4} \\ \hat{n} = (\sqrt{2}, 0, \sqrt{2}) \\ \theta = \pi
-\end{align}
+	\begin{align}
+		Hadamard = \Hadamard                                                                                                                                                                                                               \\
+		= 1/\sqrt(2) (X + Z)                                                                                                                                                                                                               \\
+		e^{i \alpha}(\cos{\halftheta}I - (\iu \sin{\halftheta}(n_x X + n_z Z))) = 1/\sqrt(2) (X + Z)                                                                                                                                       \\
+		e^{i \alpha}(\cos{\halftheta}I - (\iu \sin{\halftheta}(n_x X + n_z Z))) = \twoXtwo{\cos{\halftheta} - \iu \sin{\halftheta} n_z}{-\iu \sin{\halftheta} n_x}{-\iu \sin{\halftheta} n_x}{\cos{\halftheta} + \iu \sin{\halftheta} n_z} \\
+		\cos{\halftheta} - \iu \sin{\halftheta} n_z = -\cos{\halftheta} - \iu \sin{\halftheta} n_z                                                                                                                                         \\
+		\cos(\halftheta) = - \cos(\halftheta)                                                                                                                                                                                              \\
+		\theta = \pi                                                                                                                                                                                                                       \\
+		R_{\hat{n}}(\pi) = \twoXtwo{- \iu n_z}{-\iu n_x}{-\iu n_x}{\iu n_z}                                                                                                                                                                \\
+		n_x = n_z = \sqrt{2} \text{ - this makes the axis a unit vector}                                                                                                                                                                   \\
+		e^{\iu\frac{\pi}{4}} R_{(\sqrt{2}, 0, \sqrt{2})}(\pi) = \Hadamard = Hadamard                                                                                                                                                       \\
+		\alpha = \frac{\pi}{4}                                                                                                                                                                                                             \\ \hat{n} = (\sqrt{2}, 0, \sqrt{2}) \\ \theta = \pi
+	\end{align}
 \end{subequations}
 
 3. Find values for $\alpha$ and $\theta$ and $\hat{n}$ giving the phase gate.
 $$
-S = \twoXtwo{1}{0}{0}{\iu}
+	S = \twoXtwo{1}{0}{0}{\iu}
 $$
 \begin{subequations}
+	\begin{align}
+		R_z(\theta) = \Rz                                    \\
+		= e^{-i \halftheta} \twoXtwo{1}{0}{0}{e^{i \theta} } \\
+		R_z(\pi/2) = e^{-i \pi/4} \twoXtwo{1}{0}{0}{i}       \\
+		e^{i \pi/4}R_z(\pi/2) = \twoXtwo{1}{0}{0}{\iu} = S   \\
+	\end{align}
+\end{subequations}
+
+4.9 Explain why any single qubit unitary operator may be written in the form
+$$
+	\twoXtwo{e^{\iu (\alpha - \beta/2 - \delta/2)\cos{\gamma}}}{
+	e^{\iu (\alpha + \beta/2 - \delta/2)\sin{\gamma}}
+	}{
+	-e^{\iu (\alpha - \beta/2 + \delta/2)\sin{\gamma}}
+	}{
+	e^{\iu (\alpha + \beta/2 + \delta/2)\cos{\gamma}}
+	}
+$$
+where $\alpha$ and $\beta$ and $\delta$ and $\gamma$ are real numbers.
+
+To rehash my previous argument, the columns form an orthonormal basis that traces out the bloch sphere, thereby implementing all possible unitary transformations of a quantum state.
+
+Some quick observations - the columns are orthogonal to each other and of norm one (just calculate the norm on both, but basically, $cos^2 * sin^2 = 1$ and euler's formula guaranteeing the exponential function has a length of one in the complex plane get you there.)
+
+Each component is capable of producing any value within the complex unit circle, since the domain of the trigonometric functions is $[0, 1]$, and the exponential term can be any complex unit value - so the resulting interval is $([-1, 1] + [-\iu, \iu ]) / abs([-1, 1] + [-i, i])$
+
+4.10 \textbf{(X-Y decomposition of rotations)} Give a decomposition analogous to Theorem 4.1 but using $R_x$ instead of $R_z$.
+
+$$
+	U = e^{\iu \alpha} R_z(\beta) R_y(\gamma) R_z(\delta)
+$$
+
+I multiplied it out but I'm too lazy to convert it to \LaTeX. Basically, you get orthogonal vectors where the components are a series of trigonometric functions neatly split into real and imaginary summands, which provides universal rotation by the logic described in the last problem.
+
+4.11 Suppose $\hat{m}$ and $\hat{n}$ are non-parallel real unit vectors in three dimensions. Use theorem 4.1 to show that an arbitrary single qubit unitary $U$ may be written
+$$
+	U = e^{\iu \alpha} R_{\hat{m}}(\beta) R_{\hat{n}}(\gamma) R_{\hat{m}}(\delta)
+$$
+for appropriate choices f $\alpha$, $\beta$, $\gamma$ and $\delta$.
+
+Not a fully rigorous proof, but if they aren't parallel to each other, then they must span both the imaginary and real plane in Bloch space. Since they both also have linearly independent basis vectors, they are equivalent in dimensionality to the $Z-Y$ decomposition, and therefore, equally expressive in Bloch space.
+
+4.12: Give A, B, C and $\alpha$ for the ABC decomposition of corollary 4.2
+
+You could just use my results from 4.4 but negate the angle of the $R_z$ term.
+
+4.13: It is useful to be able to simplify circuits by inspection, using well-known identities. Prove the following three identities:
+
+$$
+	HXH = Z; HYH = -Y; HZH = X
+$$
+
+\begin{subequations}
+	\begin{align}
+		HXH = \Hadamard \pauliX \Hadamard                         \\
+		= \Hadamard \twoXtwo{\sqrhat}{\sqrhat}{-\sqrhat}{\sqrhat} \\
+		= \twoXtwo{1}{0}{0}{-1} = Z
+	\end{align}
+\end{subequations}
+
+\begin{subequations}
+	\begin{align}
+		HYH = \Hadamard \pauliY \Hadamard                                         \\
+		= \Hadamard \twoXtwo{-\iu \sqrhat}{\iu \sqrhat}{\iu \sqrhat}{\iu \sqrhat} \\
+		= \twoXtwo{0}{-\iu}{\iu}{0} = -Y
+	\end{align}
+\end{subequations}
+
+\begin{subequations}
+	\begin{align}
+		HXH = \Hadamard \pauliZ \Hadamard                         \\
+		= \Hadamard \twoXtwo{\sqrhat}{-\sqrhat}{\sqrhat}{\sqrhat} \\
+		= \twoXtwo{0}{1}{1}{0} = X
+	\end{align}
+\end{subequations}
+
+4.14 Use the previous exercise to show that $HTH = R_x(\pi/4)$ up to a global phase factor.
+
+$T$ is equivalent to $R_z$ up to a global phase factor, and therfore $Z$, and so by the $HZH = X$ identity established earlier, $HTH$ must be equivalent to $X$ within a global phase factor.
+
+4.15 The Bloch representation gives a nice way to visualize the effect of composing two rotations.
+
+1) Prove that if a rotation through and angle $\beta_1$ about the axis $\hat{n}_1$ is followed by a rotation through an angle $\beta_2$ about an axis $\hat{n}_2$, then the overall rotation is through and angle $\beta_{12}$ about an axis $\hat{n}_{12}$ given by
+\begin{subequations}
+    \begin{align}
+        c_{12} = c_1c_2 - s_1s_2\hat{n}_1 \cdot \hat{n}_{12}
+        s_{12}\hat{n}_{12} = s_1c_2\hat{n}_1 + s_1c_2\hat{n}_2 - s_1s_2\hat{n}_2 X \hat{n}_1
+	\end{align}
+\end{subequations}
+
+where $c_i = \cos{(\beta_i/2)}$, $s_i = \sin{(\beta_i/2)}$, $c_{12} = \cos{(\beta_{12}/2)}$, and $s_{12} = \sin{(\beta_{12}/2)}$.
+
+\begin{subequations}
 \begin{align}
-R_z(\theta) = \Rz\\
-= e^{-i \halftheta} \twoXtwo{1}{0}{0}{e^{i \theta} } \\
-R_z(\pi/2) = e^{-i \pi/4} \twoXtwo{1}{0}{0}{i} \\
-e^{i \pi/4}R_z(\pi/2) = \twoXtwo{1}{0}{0}{\iu} = S \\
+\Rnparam{\beta_{12}}{\hat{n^{12}}} = \\
+\Rnparam{\beta_{2}}{\hat{n^2}} \Rnparam{\beta_{1}}{\hat{n^1}} \\
 \end{align}
 \end{subequations}
 
+If we multiply these matrices out we see that
+\begin{align*}
+\cos{\beta_{12}} - \iu \sin{\beta_{12}}\hat{n^{12}} = \\
+(\cos{\beta_{1}} - \iu \sin{\beta_{1}}\hat{n^{1}})(\cos{\beta_{2}} - \iu \sin{\beta_{2}}\hat{n^{2}}) - (\sin{\beta_{1}}(\hat{n^1}_x + \iu \hat{n^1}_y)\sin{\beta_{2}}(\hat{n^2}_x - \iu \hat{n^2}_y))
+\end{align*}
+
+and
+
+\begin{align*}
+    \cos{\beta_{12}} + \iu \sin{\beta_{12}}\hat{n^{12}} = \\
+    (\cos{\beta_{1}} + \iu \sin{\beta_{1}}\hat{n^{1}})(\cos{\beta_{2}} + \iu \sin{\beta_{2}}\hat{n^{2}}) - (\sin{\beta_{1}}(\hat{n^1}_x - \iu \hat{n^1}_y)\sin{\beta_{2}}(\hat{n^2}_x + \iu \hat{n^2}_y))
+\end{align*}
+
+adding these two equations we get
+
+\begin{align*}
+\cos{\beta_{12}} = \cos{\beta_{1}}\cos{\beta_{2}} - \sin{\beta_{1}}\sin{\beta_{2}} \hat{n^2} \hat{n^1}
+\end{align*}
+
+and if we subtract these terms from equation before we get
+
+\begin{align*}
+    i\sin{\beta_{12}}\hat{n^{12}} = i\sin{\beta_1}\cos{\beta_2}\hat{n}_1 - i\sin{\beta_1}\sin{\beta_2}\hat{n}_2\hat{n}_1
+\end{align*}
+
+which divided by i gets us the second of the two equalities required.
+
+2) Show that if $\beta_1 = \beta_2$ and $\hat{n}_1 = \hat{z}$ these equations simplify to
+\begin{align*}
+    c_{12} = c^2 - s^2\hat{z} \cdot \hat{n}_2 \\
+    s_{12}\hat{n}_12 = sc(\hat{z} + \hat{n}_2) - s^2\hat{n} \times \hat{z}
+\end{align*}
+
+where $c = c1$ and $s = s1$
+
+Simply substituting the values into my prior equations demonstrates this.
 
 \end{document}
